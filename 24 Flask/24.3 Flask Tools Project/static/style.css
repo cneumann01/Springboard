@@ -1,0 +1,9 @@
+* {
+    color: red;
+}
+
+li {
+    list-style: none;
+    background-color: lightsalmon;
+    color: red;
+}

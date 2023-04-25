@@ -4,6 +4,16 @@
 {% block content %}
     <h1>{{title}}</h1>
     <h2>{{question.question}}</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
     <form action="/answer" method="post">
         {% for choice in question.choices %}
             <input type="radio" name="answer" value="{{choice}}">{{choice}}<br>

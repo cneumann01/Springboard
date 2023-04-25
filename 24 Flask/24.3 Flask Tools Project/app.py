@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 import surveys as s
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret'
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 toolbar = DebugToolbarExtension(app)
 
 sat_survey = s.satisfaction_survey
@@ -16,7 +17,10 @@ def home_page():
 
 @app.route('/question/<int:question_num>')
 def show_question(question_num):
-    return render_template('question.html', question=sat_survey.questions[question_num])
+    if len(responses) != question_num:
+        flash(f'Please answer the questions in order. Thanks!')
+        return redirect(f'/question/{len(responses)}')
+    return render_template('question.html', title=sat_survey.title, question=sat_survey.questions[question_num])
 
 @app.route('/answer', methods=['POST'])
 def answer_question():
