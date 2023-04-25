@@ -1,9 +1,5 @@
-* {
-    color: red;
-}
-
 li {
     list-style: none;
+    display: inline;
     background-color: lightsalmon;
-    color: red;
 }
