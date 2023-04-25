@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}New Story Form{% endblock %}
+
+{% block content %}
+  <h1>Welcome to MadLibs!</h1>
+  <form action="/story" method="POST">
+    {%for prompt in prompts%}
+    <label for="{{prompt}}">{{prompt}}</label>
+    <input type="text" name="{{prompt}}" id="{{prompt}}">
+  {%endfor%}
+    <input type="submit" value="Submit">
+    </form>
+{% endblock %}
