@@ -11,10 +11,24 @@
     <title>Board</title>
   </head>
   <body>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
     <ol>
       {% for row in board %}
       <li>{{row}}</li>
       {% endfor %}
     </ol>
+
+    <form action="/check-word" method="get">
+      <label for="wordGuessInput">Enter Word Here: </label>
+      <input id="wordGuessInput" type="text" name="word" />
+      <input type="submit" value="Submit" />
+    </form>
   </body>
 </html>
