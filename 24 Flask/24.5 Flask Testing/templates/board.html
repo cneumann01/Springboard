@@ -10,7 +10,8 @@
     />
     <title>Board</title>
   </head>
-  <body>
+  <body onload="startTimer()">
+    <h1>Boggle</h1>
     {% with messages = get_flashed_messages() %} {% if messages %}
     <ul class="flashes">
       {% for message in messages %}
@@ -25,15 +26,53 @@
       <li>{{row}}</li>
       {% endfor %}
     </ol>
-    
+
+    <p>Time remaining: <span id="timer"></span></p>
 
     <form action="/check-word" method="get">
       <label for="wordGuessInput">Enter Word Here: </label>
       <input id="wordGuessInput" type="text" name="word" />
-      <input type="submit" value="Submit" />
+      <input id="submitButton" type="submit" value="Submit" />
     </form>
-    <script>document.getElementById('wordGuessInput').focus()</script>
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+    <script>
+      // Focuses on the input field when the page reloads.
+      document.getElementById("wordGuessInput").focus();
+
+      // Initiates timer and keeps track of it when the page reloads.
+      const timerElement = document.getElementById("timer");
+      const wordGuessInput = document.getElementById("wordGuessInput");
+      const submitButton = document.getElementById("submitButton");
+
+      let seconds = 60;
+
+      function startTimer() {
+        let startTime = sessionStorage.getItem("startTime");
+        if (startTime) {
+          const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+          seconds -= elapsedTime;
+          if (seconds < 0) {
+            seconds = 0;
+          }
+        } else {
+          startTime = Date.now();
+          sessionStorage.setItem("startTime", startTime);
+        }
+
+        const countdown = setInterval(function () {
+          seconds--;
+          timerElement.textContent = `${seconds} seconds`;
+
+          if (seconds <= 0) {
+            clearInterval(countdown);
+            sessionStorage.clear();
+            wordGuessInput.disabled = true;
+            submitButton.disabled = true;
+            alert("Time's up!");
+            window.location.href = "/game-over";
+          }
+        }, 1000);
+      }
+    </script>
   </body>
 </html>
