@@ -11,19 +11,25 @@
     />
   </head>
   <body>
-    <h1>Boggle</h1>
+    <div id="game-over-container">
+      <h1 id="game-over-heading">Boggle</h1>
+      <h2 id="game-over-subheading">Game Over!</h2>
+      <p>Your score: <span id="final-score">{{final_score}}</span></p>
+      <p>High score: <span id="high-score">{{high_score}}</span></p>
+      <p>Words Found: <span id="words-found">{{words_found}}</span></p>
+
+      <!-- Resets the page -->
+      <form action="/reset" method="get">
+        <input type="submit" value="Play Again" />
+      </form>
+    </div>
+    <!-- <h1>Boggle</h1>
     <h2>Game Over!</h2>
     <p>Your score: {{final_score}}</p>
     <p>High score: {{high_score}}</p>
     <p>Words Found: {{words_found}}</p>
-    <ol>
-      {% for row in board %}
-      <li>{{row}}</li>
-      {% endfor %}
-    </ol>
 
-    <!-- Resets the page -->
     <form action="/reset" method="get">
-      <input type="submit" value="Play Again" />
+      <input type="submit" value="Play Again" /> -->
   </body>
 </html>

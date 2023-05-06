@@ -1,6 +1,6 @@
 """Utilities related to Boggle game."""
 
-from random import choice
+import random
 import string
 
 
@@ -21,13 +21,39 @@ class Boggle():
     def make_board(self):
         """Make and return a random boggle board."""
 
+        def random_common():
+            """Return a random uppercase letter."""
+            list1 = "AEIOULNSTRDGFHVMBC"
+            return random.choice(list1)
+
+        def random_uncommon():
+            """Return a random uppercase vowel."""
+            list2 = "JXQZWYKP"
+            return random.choice(list2)
+
         board = []
 
         for y in range(5):
-            row = [choice(string.ascii_uppercase) for i in range(5)]
+            row = []
+            for x in range(5):
+                # Randomly select whether to generate a vowel or a consonant
+                if random.random() <= 0.2:
+                    row.append(random_uncommon())
+                else:
+                    row.append(random_common())
             board.append(row)
 
         return board
+    # def make_board(self):
+    #     """Make and return a random boggle board."""
+
+    #     board = []
+
+    #     for y in range(5):
+    #         row = [choice(string.ascii_uppercase) for i in range(5)]
+    #         board.append(row)
+
+    #     return board
 
     def check_valid_word(self, board, word):
         """Check if a word is a valid word in the dictionary and/or the boggle board"""

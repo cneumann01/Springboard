@@ -15,8 +15,7 @@ def game_board():
     # Keeps track of whether or not a game is in progress.
     session['game_in_progress'] = True
     """Display game board."""
-    flash(f"Current Score: {score}")
-    return render_template('board.html', board=board)
+    return render_template('board.html', board=board, score=score)
 
 @app.route('/check-word')
 def check_word():

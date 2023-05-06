@@ -1,3 +1,140 @@
-ol {
-  list-style-type: none;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.flashes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.flashes li {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 5px;
+}
+
+.board_container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 5px;
+  width: 90vw;
+  height: 90vw;
+  max-width: 400px;
+  max-height: 400px;
+  margin: auto;
+  font-size: 2em;
+}
+
+.board_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F7F7F7;
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.board_item:hover {
+  background-color: #FFDAB9;
+}
+
+p {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+#timer {
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+label {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+input[type="text"] {
+  font-size: 2rem;
+  padding: 0.5rem;
+  margin: 5px;
+}
+
+input[type="submit"] {
+  font-size: 2rem;
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+input[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: default;
+}
+
+/* Game-Over Screen */
+#game-over-container {
+  background-color: #F7F7F7;
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+#game-over-heading {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+#game-over-subheading {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+#final-score, #high-score, #words-found {
+  font-weight: bold;
+}
+
+#game-over-container form {
+  margin-top: 1.5rem

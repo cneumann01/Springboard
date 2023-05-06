@@ -10,8 +10,16 @@
     />
     <title>Board</title>
   </head>
-  <body onload="startTimer()">
+  <body>
     <h1>Boggle</h1>
+
+    <h2>Current Score: {{score}}</h2>
+    <div class="board_container">
+      {% for row in board %} {% for letter in row %}
+      <div class="board_item">{{letter}}</div>
+      {% endfor %} {% endfor %}
+    </div>
+
     {% with messages = get_flashed_messages() %} {% if messages %}
     <ul class="flashes">
       {% for message in messages %}
@@ -20,59 +28,78 @@
     </ul>
     {% endif %} {% endwith %}
 
-    <div id="board_container"></div>
-    <ol>
-      {% for row in board %}
-      <li>{{row}}</li>
-      {% endfor %}
-    </ol>
-
-    <p>Time remaining: <span id="timer"></span></p>
+    <p>Time remaining:<span id="timer">---</span> seconds</p>
 
     <form action="/check-word" method="get">
       <label for="wordGuessInput">Enter Word Here: </label>
-      <input id="wordGuessInput" type="text" name="word" />
+      <input id="wordGuessInput" type="text" name="word" required"/>
       <input id="submitButton" type="submit" value="Submit" />
     </form>
 
     <script>
-      // Focuses on the input field when the page reloads.
-      document.getElementById("wordGuessInput").focus();
-
       // Initiates timer and keeps track of it when the page reloads.
       const timerElement = document.getElementById("timer");
       const wordGuessInput = document.getElementById("wordGuessInput");
       const submitButton = document.getElementById("submitButton");
 
+      // Focuses on the input field when the page reloads.
+      wordGuessInput.focus();
+
       let seconds = 60;
 
-      function startTimer() {
-        let startTime = sessionStorage.getItem("startTime");
-        if (startTime) {
-          const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-          seconds -= elapsedTime;
-          if (seconds < 0) {
-            seconds = 0;
-          }
-        } else {
-          startTime = Date.now();
-          sessionStorage.setItem("startTime", startTime);
+      let startTime = sessionStorage.getItem("startTime");
+      if (startTime) {
+        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+        seconds -= elapsedTime;
+        if (seconds < 0) {
+          seconds = 0;
         }
-
-        const countdown = setInterval(function () {
-          seconds--;
-          timerElement.textContent = `${seconds} seconds`;
-
-          if (seconds <= 0) {
-            clearInterval(countdown);
-            sessionStorage.clear();
-            wordGuessInput.disabled = true;
-            submitButton.disabled = true;
-            alert("Time's up!");
-            window.location.href = "/game-over";
-          }
-        }, 1000);
+      } else {
+        startTime = Date.now();
+        sessionStorage.setItem("startTime", startTime);
       }
+
+      const countdown = setInterval(function () {
+        seconds--;
+        timerElement.textContent = seconds;
+
+        if (seconds <= 0) {
+          clearInterval(countdown);
+          sessionStorage.clear();
+          wordGuessInput.disabled = true;
+          submitButton.disabled = true;
+          alert("Time's up!");
+          window.location.href = "/game-over";
+        }
+      }, 1000);
+
+      // function startTimer() {
+      //   let startTime = sessionStorage.getItem("startTime");
+      //   if (startTime) {
+      //     const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+      //     seconds -= elapsedTime;
+      //     if (seconds < 0) {
+      //       seconds = 0;
+      //     }
+      //   } else {
+      //     startTime = Date.now();
+      //     sessionStorage.setItem("startTime", startTime);
+      //   }
+
+      //   const countdown = setInterval(function () {
+      //     seconds--;
+      //     timerElement.textContent = `${seconds} seconds`;
+
+      //     if (seconds <= 0) {
+      //       clearInterval(countdown);
+      //       sessionStorage.clear();
+      //       wordGuessInput.disabled = true;
+      //       submitButton.disabled = true;
+      //       alert("Time's up!");
+      //       window.location.href = "/game-over";
+      //     }
+      //   }, 1000);
+      // }
     </script>
   </body>
 </html>
