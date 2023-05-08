@@ -16,5 +16,3 @@ function binarySearch(array, target) {
 
   return -1; // Indicates target was not found in array
 }
-
-binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9], 7);
