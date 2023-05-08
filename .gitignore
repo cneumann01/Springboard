@@ -3,3 +3,7 @@ venv
 __pycache__
 .vscode
 .hintrc
+node_modules
+package-lock.json
+package.json
+
