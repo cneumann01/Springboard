@@ -3,12 +3,11 @@
 {% block title %}Show Post{% endblock %}
 
 {% block content %}
-    <h1>{{user.full_name}} Details</h1>
-    <img src="{{user.image_url}}" alt="User Profile Picture">
+    <h1>{{post.title}}</h1>
     <ul>
-        <li>First Name: {{user.first_name}}</li>
-        <li>Last Name: {{user.last_name}}</li>
+        <li>Title: {{post.title}}</li>
+        <li>Content: {{post.content}}</li>
     </ul>
-    <a href="/users/{{user.id}}/edit">Edit User</a>
+    <a href="/posts/{{post.id}}/edit">Edit Post</a>
     <a href="/users">All Users</a>
 {% endblock %}

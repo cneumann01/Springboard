@@ -51,7 +51,8 @@ def add_user():
 def show_user(user_id):
     """Show information about the given user."""
     user = User.query.get_or_404(user_id)
-    return render_template('show.html', user=user)
+    posts = Post.query.filter_by(user_id=user_id).all()
+    return render_template('show.html', user=user, posts=posts)
 
 
 @app.route('/users/<int:user_id>/edit')
@@ -63,6 +64,7 @@ def edit_user(user_id):
 
 @app.route('/users/<int:user_id>/edit', methods=['POST'])
 def update_user(user_id):
+    """Process the edit form, returning the user to the /users page."""
     user = User.query.get(user_id)
     user.first_name = request.form['first_name']
     user.last_name = request.form['last_name']
@@ -81,7 +83,7 @@ def delete_user(user_id):
     return redirect('/users')
 
 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# XXXXXXXXXXX Post Logic XXXXXXXXXXX
 @app.route('/users/<int:user_id>/posts/new')
 def new_post_form(user_id):
     """Show an add form for posts."""
@@ -89,12 +91,12 @@ def new_post_form(user_id):
     return render_template('new_post.html', user=user)
 
 
-@app.route('/users/<int:user_id>/posts/new', methods=['POST'])
-def add_post(user_id):
+@app.route('/users/<int:userId>/posts/new', methods=['POST'])
+def add_post(userId):
     title = request.form['title']
     content = request.form['content']
 
-    new_post = Post(title=title, content=content, user_id=user_id)
+    new_post = Post(title=title, content=content, user_id=userId)
     db.session.add(new_post)
     db.session.commit()
 
@@ -125,7 +127,7 @@ def update_post(post_id):
     return redirect(f'/posts/{post_id}')
 
 
-@app.route('/posts/<int:post_id>/delete')
+@app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
     """Delete the post."""
     post = Post.query.get_or_404(post_id)
