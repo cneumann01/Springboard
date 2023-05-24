@@ -7,7 +7,12 @@
     <form action="/posts/{{post.id}}/edit" method="POST">
         <input type="text" name="title" value="{{post.title}}"><br>
         <input type="text" name="content" value="{{post.content}}"><br>
+        <label>Tags:</label><br />
+        {% for tag in tags %}
+        <input type="checkbox" name="tags" value="{{ tag.id }}" {% if tag.id in checked_tags %}checked{% endif %}> {{ tag.name }} <br>
+        {% endfor %}
         <button type="submit">Save Changes</button>
+
     </form>
     <form action="/posts/{{post.id}}/delete" method="POST">
         <button type="submit">Delete Post</button>

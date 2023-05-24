@@ -1,6 +1,5 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Integer
 import datetime
@@ -65,3 +64,7 @@ class PostTag(db.Model):
     tag_id = db.Column(Integer, db.ForeignKey('tags.id'), primary_key=True)
     post = relationship('Post')
     tag = relationship('Tag')
+
+    @property
+    def name(self):
+        return self.tag.name

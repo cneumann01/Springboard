@@ -89,33 +89,45 @@ def delete_user(user_id):
 def new_post_form(user_id):
     """Show an add form for posts."""
     user = User.query.get_or_404(user_id)
-    return render_template('new_post.html', user=user)
+    tags = Tag.query.all()
+    return render_template('new_post.html', user=user, tags=tags)
 
 
 @app.route('/users/<int:userId>/posts/new', methods=['POST'])
 def add_post(userId):
     title = request.form['title']
     content = request.form['content']
+    tags = request.form.getlist('tags')
 
     new_post = Post(title=title, content=content, user_id=userId)
     db.session.add(new_post)
     db.session.commit()
 
-    return redirect('/users')
+    for tag in tags:
+        new_post_tag = PostTag(post_id=new_post.id, tag_id=tag)
+        db.session.add(new_post_tag)
+
+    db.session.commit()
+
+    return redirect(f'/users/{userId}')
 
 
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
     """Show a post."""
     post = Post.query.get_or_404(post_id)
-    return render_template('show_post.html', post=post)
+    tags = PostTag.query.filter_by(post_id=post_id).all()
+    return render_template('show_post.html', post=post, tags=tags)
 
 
 @app.route('/posts/<int:post_id>/edit')
 def edit_post(post_id):
     """Show an edit form for posts."""
     post = Post.query.get_or_404(post_id)
-    return render_template('edit_post.html', post=post)
+    tags = Tag.query.all()
+    checked_tags = [tag.id for tag in post.tags]
+
+    return render_template('edit_post.html', post=post, tags=tags, checked_tags=checked_tags)
 
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
@@ -124,6 +136,15 @@ def update_post(post_id):
     post = Post.query.get_or_404(post_id)
     post.title = request.form['title']
     post.content = request.form['content']
+
+    selected_tags = request.form.getlist('tags')
+
+    PostTag.query.filter_by(post_id=post_id).delete()
+
+    for tag_id in selected_tags:
+        post_tag = PostTag(post_id=post.id, tag_id=tag_id)
+        db.session.add(post_tag)
+
     db.session.commit()
     return redirect(f'/posts/{post_id}')
 
@@ -147,7 +168,9 @@ def list_tags():
 def show_tag(tag_id):
     """Show a tag."""
     tag = Tag.query.get_or_404(tag_id)
-    return render_template('show_tag.html', tag=tag)
+    post_tags = PostTag.query.filter_by(tag_id=tag_id).all()
+    posts = [post_tag.post for post_tag in post_tags]
+    return render_template('show_tag.html', tag=tag, posts=posts)
 
 @app.route('/tags/new')
 def new_tag_form():

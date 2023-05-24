@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Show Tag{% endblock %}
+
+{% block content %}
+    <h1>{{tag.name}}</h1>
+    <a href="/tags/{{tag.id}}/edit">Edit Tag</a>
+    <h2>Posts</h2>
+    <ul>
+        {% for post in posts %}
+            <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+        {% endfor %}
+    <a href="/tags">All Tags</a>
+{% endblock %}
