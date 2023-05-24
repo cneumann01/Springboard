@@ -1,6 +1,6 @@
 """Blogly application."""
 from flask import Flask, redirect, render_template, request, flash
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -14,6 +14,7 @@ with app.app_context():
     db.create_all()
 
 
+# XXXXXXXXXXX User Logic XXXXXXXXXXX
 @app.route('/')
 def home():
     """Redirect to list of users."""
@@ -134,3 +135,53 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect('/users')
+
+# XXXXXXXXXXX Tag Logic XXXXXXXXXXX
+@app.route('/tags')
+def list_tags():
+    """Show all tags."""
+    tags = Tag.query.all()
+    return render_template('list_tags.html', tags=tags)
+
+@app.route('/tags/<int:tag_id>')
+def show_tag(tag_id):
+    """Show a tag."""
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('show_tag.html', tag=tag)
+
+@app.route('/tags/new')
+def new_tag_form():
+    """Show an add form for tags."""
+    return render_template('new_tag.html')
+
+@app.route('/tags/new', methods=['POST'])
+def add_tag():
+    """Process the add form, adding a new tag and going back to /tags."""
+    name = request.form['name']
+    new_tag = Tag(name=name)
+    db.session.add(new_tag)
+    db.session.commit()
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/edit')
+def edit_tag(tag_id):
+    """Show an edit form for tags."""
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('edit_tag.html', tag=tag)
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def update_tag(tag_id):
+    """Process the edit form, returning the tags to the /tags page."""
+    tag = Tag.query.get_or_404(tag_id)
+    tag.name = request.form['name']
+    db.session.commit()
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/delete', methods=['POST'])
+def delete_tag(tag_id):
+    """Delete the tag."""
+    tag = Tag.query.get_or_404(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+    return redirect('/tags')
+
