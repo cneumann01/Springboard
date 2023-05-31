@@ -4,10 +4,21 @@
 
 {% block content %}
 
-<ul>
-{% for pet in pets%}
-<li>{{ pet.name }} is a {{ pet.species }}</li>
-{% endfor %}
-</ul>
+<h1>Pet Adoption</h1>
+<div class="pets">
+    {% for pet in pets %}
+        <a href="/{{pet.id}}"><div class="pet">
+            {% if pet.photo_url %}
+                <img src="{{ pet.photo_url }}" alt="{{ pet.name }}">
+            {% endif %}
+            <div class="name">{{ pet.name }}</div>
+            {% if pet.available %}
+                <div class="availability available">Available</div>
+            {% else %}
+                <div class="availability unavailable">Not Available</div>
+            {% endif %}
+        </div></a>
+    {% endfor %}
+</div>
 
 {% endblock %}

@@ -1,0 +1,43 @@
+.pet {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pet img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.pet .availability {
+
+    margin-left: 10px;
+}
+.availability {
+    font-weight: bold;
+}
+
+img {
+    width: 500px;
+
+}
+.unavailable {
+    color: red;
+}
+
+.available {
+    color: green;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    margin: 10px;
+}
