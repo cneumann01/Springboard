@@ -1,3 +1,3 @@
 # Springboard
 
-This is the master repostitory for my Springboard student projects.
+This is the master repository for my Springboard student projects.
