@@ -9,6 +9,7 @@ bcrypt = Bcrypt()
 def connect_db(app):
     db.app = app
     db.init_app(app)
+    db.create_all()
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -28,7 +29,6 @@ class User(db.Model):
 
         User = cls(username=username, password=hashed_utf8, email=email, first_name=first_name, last_name=last_name)
 
-        db.session.add(User)
         return User
     
     @classmethod
@@ -41,3 +41,18 @@ class User(db.Model):
             return user
         else:
             return False
+        
+class Feedback(db.Model):
+    __tablename__ = 'feedback'
+
+    id = db.Column(Integer, primary_key=True, autoincrement=True)
+    title = db.Column(String(100), nullable=False)
+    content = db.Column(String(500), nullable=False)
+    username = db.Column(String(20), db.ForeignKey('users.username'), nullable=False)
+
+    user = db.relationship('User', backref='feedback')
+
+    @property
+    def user_id(self):
+        return self.user.id
+    
