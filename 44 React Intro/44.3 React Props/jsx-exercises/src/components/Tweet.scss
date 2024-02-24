@@ -1,0 +1,37 @@
+$Info-Text: #162531;
+
+.tweet {
+	border: 1px solid #e1e8ed;
+	padding: 10px;
+	border-radius: 8px;
+	margin: 10px 0;
+	background-color: #2d8cb5;
+	max-width: 500px;
+
+	&-header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 5px;
+
+		.name {
+			margin: 0;
+			margin-right: 10px;
+			font-weight: bold;
+		}
+
+		.username {
+			margin: 0;
+			color: $Info-Text;
+		}
+	}
+
+	.date {
+		margin: 0 0 10px 0;
+		color: $Info-Text;
+		font-size: 0.85rem;
+	}
+
+	.message {
+		margin: 0;
+	}
+}

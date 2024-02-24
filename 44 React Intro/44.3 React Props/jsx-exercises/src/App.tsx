@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import FirstComponent from "./components/FirstComponent";
+import NamedComponent from "./components/NamedComponent";
+import Tweet from "./components/Tweet";
+import Person from "./components/Person";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	return (
+		<div>
+			<h1>Part 1</h1>
+			<FirstComponent />
+			<NamedComponent name="John" />
+			<h1>Part 2</h1>
+			<Tweet
+				username="Johnb123"
+				name="John"
+				date="2021-09-01"
+				message="This world is out of control man..."
+			/>
+			<Tweet
+				username="xmxgirl37"
+				name="Sarah"
+				date="2021-08-03"
+				message="Hey friends!"
+			/>
+			<Tweet
+				username="the_man"
+				name="Chris"
+				date="2022-05-01"
+				message="Yo yo yo it's your boi Chris"
+			/>
+			<h1>Part 3</h1>
+			<Person
+				name="John"
+				age={19}
+				hobbies={["soccer", "gaming", "reading"]}
+			/>
+			<Person
+				name="Sarah"
+				age={17}
+				hobbies={["painting", "drawing", "singing"]}
+			/>
+			<Person
+				name="Chris"
+				age={22}
+				hobbies={["basketball", "gaming", "running"]}
+			/>
+		</div>
+	);
 }
 
-export default App
+export default App;

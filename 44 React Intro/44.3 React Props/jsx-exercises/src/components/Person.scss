@@ -1,0 +1,40 @@
+.person {
+	background-color: #1fa19e;
+	padding: 20px;
+	border-radius: 10px;
+	margin: 10px 0;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+	.person-info,
+	.person-name,
+	.person-age,
+	.age-reply,
+	.hobbies-title,
+	.hobbies-list {
+		margin: 10px 0;
+	}
+
+	.person-name,
+	.person-age {
+		font-weight: bold;
+	}
+
+	.age-reply {
+		color: #e6991c;
+		font-size: 1.2rem;
+	}
+
+	.hobbies-title {
+		font-size: 1.1rem;
+		font-weight: bold;
+	}
+
+	.hobbies-list {
+		list-style-type: circle;
+		margin-left: 20px;
+
+		.hobby {
+			margin: 5px 0;
+		}
+	}
+}
