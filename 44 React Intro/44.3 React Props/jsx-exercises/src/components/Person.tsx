@@ -1,5 +1,10 @@
-import React from "react";
 import "./Person.scss"; // Importing SCSS file for styles
+
+interface PersonProps {
+    name: string;
+    age: number;
+    hobbies: string[];
+}
 
 const Person = (props: PersonProps) => {
 	let name = props.name;
