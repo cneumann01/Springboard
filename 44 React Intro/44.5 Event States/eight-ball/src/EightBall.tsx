@@ -50,7 +50,7 @@ const EightBall: React.FC = () => {
 			onClick={clickHandler}
 			style={{ backgroundColor: msgState.color }} // Inline style for dynamic background color
 		>
-			<p>{msgState.msg}</p>
+			<p className='unselectable'>{msgState.msg}</p>
 		</div>
 	);
 };
