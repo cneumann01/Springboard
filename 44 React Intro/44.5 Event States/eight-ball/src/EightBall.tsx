@@ -1,12 +1,12 @@
 import "./EightBall.scss";
 import { useState } from "react";
 
-interface msg {
+interface Message {
 	msg: string;
 	color: string;
 }
 
-const msgs: msg[] = [
+const messages: Message[] = [
 	{ msg: "It is certain.", color: "green" },
 	{ msg: "It is decidedly so.", color: "green" },
 	{ msg: "Without a doubt.", color: "green" },
@@ -31,7 +31,7 @@ const msgs: msg[] = [
 
 const EightBall: React.FC = () => {
 	// Initialize state with a default message and color
-	const [msgState, setmsgState] = useState<msg>({
+	const [msgState, setmsgState] = useState<Message>({
 		msg: "Click me for an answer!",
 		color: "black",
 	});
@@ -39,7 +39,7 @@ const EightBall: React.FC = () => {
 	const clickHandler = () => {
 		// Randomly select a message from the msgs array and update the state
 		const randomMessage =
-			msgs[Math.floor(Math.random() * msgs.length)];
+			messages[Math.floor(Math.random() * messages.length)];
 		setmsgState(randomMessage);
 	};
 
