@@ -1,19 +1,32 @@
 .Carousel-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	padding: 0 20px;
 }
 
 .Carousel-main > i {
-  cursor: pointer;
-  margin: 10px;
-  color: #aaa;
+	cursor: pointer;
+	margin: 10px;
+	color: #aaa;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.Carousel-main > i.bi-arrow-left-circle {
+	left: 10px;
+}
+
+.Carousel-main > i.bi-arrow-right-circle {
+	right: 10px;
 }
 
 .Carousel-main > i:hover {
-  color: black;
+	color: black;
 }
 
 .bi {
-  font-size: 35px
+	font-size: 35px;
 }
