@@ -3,11 +3,13 @@ interface BoxProps {
 	color: string;
 	width: number;
 	height: number;
+    x: number;
+    y: number;
 	removeBox: (id: number) => void;
 }
 
-const Box: React.FC<BoxProps> = ({ id, color, width, height, removeBox }) => {
-    
+const Box: React.FC<BoxProps> = ({ id, color, width, height, x, y, removeBox }) => {
+
 	// Function to handle the "X" button click for box removal.
 	const handleRemove = () => {
 		removeBox(id); 
@@ -21,6 +23,9 @@ const Box: React.FC<BoxProps> = ({ id, color, width, height, removeBox }) => {
 				backgroundColor: color,
 				width: `${width}px`,
 				height: `${height}px`,
+                position: 'absolute',
+                left: `${x}px`,
+                top: `${y}px`,
 			}}>
 			<button onClick={handleRemove}>X</button>
 		</div>

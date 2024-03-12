@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "./Box";
 import NewBoxForm from "./NewBoxForm";
+import "./BoxList.scss";
 
 interface BoxData {
 	id: number;
@@ -24,7 +25,7 @@ const BoxList: React.FC = () => {
 	};
 
 	return (
-		<div>
+		<div className="BoxList">
 			<NewBoxForm addBox={addBox} />
 			{boxes.map(({ id, color, width, height }) => (
 				<Box
@@ -33,6 +34,8 @@ const BoxList: React.FC = () => {
 					color={color}
 					width={width}
 					height={height}
+                    x={(Math.random() * 500)}
+                    y={(Math.random() * 500)}
 					removeBox={removeBox}
 				/>
 			))}
